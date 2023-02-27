@@ -10,13 +10,23 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/directoriesDOM.js":
+/*!*******************************!*\
+  !*** ./src/directoriesDOM.js ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"addNewProjectOrListDOM\": () => (/* binding */ addNewProjectOrListDOM),\n/* harmony export */   \"initDirectoryButtonEventHandlers\": () => (/* binding */ initDirectoryButtonEventHandlers),\n/* harmony export */   \"initdirectoryEventHandlers\": () => (/* binding */ initdirectoryEventHandlers),\n/* harmony export */   \"updateListSectionProjectTitle\": () => (/* binding */ updateListSectionProjectTitle)\n/* harmony export */ });\n/* harmony import */ var _project__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./project */ \"./src/project.js\");\n/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! . */ \"./src/index.js\");\n\n\nconst projectsListContainer = document.querySelector(\n  \".directories-list-projects\"\n);\nconst listsContainer = document.querySelector(\".directories-list-lists\");\nconst projectTitleListSection = document.querySelector(\".current-project-name\");\nconst forms = document.querySelectorAll(\"form\");\nconst directoryButtons = document.querySelectorAll(\".project-list-buttons\");\n\nlet lastSelectedProject;\n\nfunction initdirectoryEventHandlers() {\n  [...forms].forEach((form) => {\n    form.addEventListener(\"submit\", (e) => {\n      e.preventDefault();\n\n      let formClicked = e.target.className;\n      let value;\n\n      if (formClicked === \"project-form\") {\n        value = document.querySelector(\"#project-name\").value;\n        formClicked = \"Project\";\n      } else {\n        value = document.querySelector(\"#list-name\").value;\n        formClicked = \"List\";\n      }\n      console.log(value);\n      if (value === \"\") {\n        alert(`${formClicked} name cannot be blank!`);\n      } else {\n        if (formClicked === \"Project\") {\n          ___WEBPACK_IMPORTED_MODULE_1__.projectList.push(new _project__WEBPACK_IMPORTED_MODULE_0__.Project(value));\n          addNewProjectOrListDOM(\n            value,\n            formClicked === \"Project\" ? true : false\n          );\n        } else {\n          addNewProjectOrListDOM(\n            value,\n            formClicked === \"Project\" ? true : false\n          );\n        }\n      }\n      console.log(formClicked);\n    });\n  });\n}\n\nfunction addNewProjectOrListDOM(directoryName, isProject) {\n  let li = document.createElement(\"li\");\n  let projectButton = document.createElement(\"button\");\n  let deleteButton = document.createElement(\"button\");\n  let deleteImage = document.createElement(\"img\");\n\n  projectButton.textContent = directoryName;\n  projectButton.className = \"project-list-buttons\";\n  projectButton.addEventListener(\"click\", directoryButtonEvent);\n\n  deleteImage.src = \"../img/trash.png\";\n  deleteImage.width = \"25\";\n  deleteButton.appendChild(deleteImage);\n\n  li.appendChild(projectButton);\n  li.appendChild(deleteButton);\n\n  if (isProject) {\n    projectsListContainer.appendChild(li);\n  } else {\n    listsContainer.appendChild(li);\n  }\n}\n\nfunction updateListSectionProjectTitle(projectName) {\n  projectTitleListSection.textContent = projectName;\n}\n\nfunction initDirectoryButtonEventHandlers() {\n  [...directoryButtons].forEach((button) => {\n    button.addEventListener(\"click\", directoryButtonEvent);\n  });\n}\n\nfunction directoryButtonEvent(e) {\n  e.target.setAttribute(\"selected\", \"true\");\n  if (lastSelectedProject && lastSelectedProject !== e.target) {\n    lastSelectedProject.removeAttribute(\"selected\");\n  }\n  lastSelectedProject = e.target;\n  console.dir(lastSelectedProject);\n}\n\n\n//# sourceURL=webpack://to-do/./src/directoriesDOM.js?");
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _task__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./task */ \"./src/task.js\");\n/* harmony import */ var _toDoList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toDoList */ \"./src/toDoList.js\");\n/* harmony import */ var _project__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./project */ \"./src/project.js\");\n/* harmony import */ var _projectsDOM__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./projectsDOM */ \"./src/projectsDOM.js\");\n\n\n\n\n\nlet projectList = new Array();\n\nconst forms = document.querySelectorAll(\"form\");\n\n[...forms].forEach((form) => {\n  form.addEventListener(\"submit\", (e) => {\n    e.preventDefault();\n\n    let formClicked = e.target.className;\n    let value;\n\n    if (formClicked === \"project-form\") {\n      value = document.querySelector(\"#project-name\").value;\n      formClicked = \"Project\";\n    } else {\n      value = document.querySelector(\"#list-name\").value;\n      formClicked = \"List\";\n    }\n    console.log(value);\n    if (value === \"\") {\n      alert(`${formClicked} name cannot be blank!`);\n    } else {\n      if (formClicked === \"Project\") {\n        projectList.push(new _project__WEBPACK_IMPORTED_MODULE_2__.Project(value));\n        (0,_projectsDOM__WEBPACK_IMPORTED_MODULE_3__.addNewProjectDOM)(value);\n        console.dir(projectList);\n      }\n    }\n    console.log(formClicked);\n  });\n});\n\n\n//# sourceURL=webpack://to-do/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"activeList\": () => (/* binding */ activeList),\n/* harmony export */   \"activeProject\": () => (/* binding */ activeProject),\n/* harmony export */   \"projectList\": () => (/* binding */ projectList)\n/* harmony export */ });\n/* harmony import */ var _directoriesDOM__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./directoriesDOM */ \"./src/directoriesDOM.js\");\n\n\n\nlet projectList = new Array();\nlet activeProject;\nlet activeList;\n\n(0,_directoriesDOM__WEBPACK_IMPORTED_MODULE_0__.initdirectoryEventHandlers)();\n(0,_directoriesDOM__WEBPACK_IMPORTED_MODULE_0__.initDirectoryButtonEventHandlers)();\n\n\n//# sourceURL=webpack://to-do/./src/index.js?");
 
 /***/ }),
 
@@ -27,36 +37,6 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _tas
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"Project\": () => (/* binding */ Project)\n/* harmony export */ });\nclass Project {\n  constructor(projectName) {\n    this.projectName = projectName;\n    this.toDoListArray = new Array();\n  }\n\n  addList(list) {\n    this.toDoListArray.push(list);\n  }\n\n  displayLists() {\n    this.toDoListArray.forEach((list) => {\n      list.displayTasks();\n    });\n  }\n}\n\n\n//# sourceURL=webpack://to-do/./src/project.js?");
-
-/***/ }),
-
-/***/ "./src/projectsDOM.js":
-/*!****************************!*\
-  !*** ./src/projectsDOM.js ***!
-  \****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"addNewProjectDOM\": () => (/* binding */ addNewProjectDOM)\n/* harmony export */ });\nconst projectsListContainer = document.querySelector(\n  \".directories-list-projects\"\n);\n\nfunction addNewProjectDOM(projectName) {\n  let li = document.createElement(\"li\");\n  let projectButton = document.createElement(\"button\");\n  let deleteButton = document.createElement(\"button\");\n  let deleteImage = document.createElement(\"img\");\n\n  projectButton.textContent = projectName;\n  projectButton.className = \"project-list-buttons\";\n\n  deleteImage.src = \"../img/trash.png\";\n  deleteImage.width = \"25\";\n  deleteButton.appendChild(deleteImage);\n\n  li.appendChild(projectButton);\n  li.appendChild(deleteButton);\n\n  projectsListContainer.appendChild(li);\n}\n\n\n//# sourceURL=webpack://to-do/./src/projectsDOM.js?");
-
-/***/ }),
-
-/***/ "./src/task.js":
-/*!*********************!*\
-  !*** ./src/task.js ***!
-  \*********************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"Task\": () => (/* binding */ Task)\n/* harmony export */ });\nclass Task {\n  constructor(taskName, taskDescription, taskDueDate, priority, isCompleted) {\n    this.taskName = taskName;\n    this.taskDescription = taskDescription;\n    this.taskDueDate = taskDueDate;\n    this.priority = priority;\n    this.isCompleted = isCompleted;\n  }\n  info() {\n    console.log(`Task Name: ${this.taskName}`);\n    console.log(`Task Description: ${this.taskDescription}`);\n    console.log(`Task Due Date: ${this.taskDueDate}`);\n    console.log(`Task Priority: ${this.priority}`);\n    console.log(`Task Completed: ${this.isCompleted}`);\n    console.log(\"---------------------------------\");\n  }\n}\n\n\n//# sourceURL=webpack://to-do/./src/task.js?");
-
-/***/ }),
-
-/***/ "./src/toDoList.js":
-/*!*************************!*\
-  !*** ./src/toDoList.js ***!
-  \*************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"ToDoList\": () => (/* binding */ ToDoList)\n/* harmony export */ });\nclass ToDoList {\n  constructor(listName) {\n    this.listName = listName;\n    this.taskArray = new Array();\n  }\n\n  addTask(task) {\n    this.taskArray.push(task);\n  }\n\n  displayTasks() {\n    this.taskArray.forEach((task) => {\n      task.info();\n    });\n  }\n}\n\n\n//# sourceURL=webpack://to-do/./src/toDoList.js?");
 
 /***/ })
 
@@ -119,7 +99,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /******/ 	
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	// This entry module can't be inlined because the eval devtool is used.
+/******/ 	// This entry module is referenced by other modules so it can't be inlined
 /******/ 	var __webpack_exports__ = __webpack_require__("./src/index.js");
 /******/ 	
 /******/ })()
