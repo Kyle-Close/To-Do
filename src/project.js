@@ -1,7 +1,8 @@
 export class Project {
-  constructor(projectName) {
+  constructor(projectName, domListElement) {
     this.projectName = projectName;
     this.toDoListArray = new Array();
+    this.domListElement = domListElement;
   }
 
   addList(list) {
