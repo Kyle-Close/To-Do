@@ -3,7 +3,7 @@
 body {
   height: 100vh;
   margin: 0;
-  background-color: rgba(105, 162, 190, 0.671);
+  background-color: rgba(129, 142, 148, 0.671);
 }
 
 ul,
@@ -134,21 +134,30 @@ form button {
 .create-task > button {
   height: 50px;
   width: 70%;
-  background-color: greenyellow;
-  border: 2px solid black;
+  background-color: rgb(32, 121, 32);
   border-radius: 0;
+  color: white;
+  font-weight: bolder;
+  border: 1px solid black;
 }
 
 .delete-all-tasks > button {
   height: 30px;
-  width: 40%;
-  background-color: red;
-  border: 2px solid black;
+  width: 35%;
+  background-color: rgb(136, 15, 15);
   border-radius: 0;
+  color: white;
+  font-weight: bolder;
+  border: 1px solid black;
+  min-width: 120px;
 }
 
 .create-task > button:hover {
-  opacity: 80%;
+  opacity: 60%;
+}
+
+.delete-all-tasks > button:hover {
+  opacity: 60%;
 }
 
 /* -------- TASK SECTION -------- */
@@ -210,6 +219,7 @@ form button {
   font-weight: bolder;
   text-align: center;
   margin-top: 5px;
+  min-height: 20px;
 }
 
 .task-bottom {
@@ -275,4 +285,72 @@ form button {
 
 [selected] {
   border: 5px solid red;
+}
+
+/* -------- MODAL SECTION -------- */
+#task-modal {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: none;
+}
+
+#task-modal-content {
+  background-color: white;
+  margin: 15% auto;
+  border: 1px solid #888;
+  width: 30%;
+  display: grid;
+  grid-template-rows: 80px 1fr;
+  border: 2px black solid;
+  overflow: auto;
+}
+
+#task-modal-content h1 {
+  background-color: rgba(24, 75, 216, 0.863);
+  padding: 20px;
+  text-align: center;
+  color: white;
+  border-bottom: black solid 2px;
+}
+
+#task-modal-content form {
+  display: grid;
+  padding: 20px 50px;
+}
+
+.create-task-buttons {
+  border-top: 1px solid rgba(0, 0, 0, 0.25);
+  padding-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.create-task-buttons button {
+  width: 25%;
+  color: white;
+  font-weight: bolder;
+  border: 1px solid black;
+}
+
+.create-task-buttons button:hover {
+  opacity: 0.5;
+}
+
+#confirm {
+  background-color: rgb(32, 121, 32);
+}
+
+#cancel {
+  background-color: rgb(136, 15, 15);
+}
+
+form div {
+  display: grid;
+  gap: 5px;
 }
